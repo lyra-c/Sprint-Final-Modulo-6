@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<bean:beans xmlns:bean="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.springframework.org/schema/security"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    	http://www.springframework.org/schema/beans/spring-beans.xsd
+    	http://www.springframework.org/schema/security
+        https://www.springframework.org/schema/security/spring-security.xsd">
+        
+        
+	<http auto-config="true">
+		<intercept-url pattern="/" access="permitAll" />
+		<!-- Añadir reglas adicionales -->
+		
+		<!-- Reglas de muestra -->
+		<intercept-url pattern="/capacitaciones/crear" access="hasAnyAuthority('CLIENTE')" />
+		<intercept-url pattern="/capacitaciones/listar" access="hasAnyAuthority('CLIENTE')" />
+		<intercept-url pattern="/capacitaciones" access="hasAnyAuthority('CLIENTE')" />
+
+		
+		<intercept-url pattern="/" access="permitAll" />
+	 	<intercept-url pattern="/contacto" access="hasAnyAuthority('CLIENTE')" />
+	 	<intercept-url pattern="/usuarios/crear" access="hasAnyAuthority('ADMINISTRATIVO')" />
+	 	<intercept-url pattern="/usuarios/listarUsuario" access="hasAnyAuthority('ADMINISTRATIVO')" />
+	 	<intercept-url pattern="/usuarios/listar" access="hasAnyAuthority('ADMINISTRATIVO')" />
+	 	<intercept-url pattern="/usuarios" access="hasAnyAuthority('ADMINISTRATIVO')" />
+	 	<intercept-url pattern="/usuarios/editar" access="hasAnyAuthority('ADMINISTRATIVO')" />
+	 	<intercept-url pattern="/visitas/listar" access="hasAnyAuthority('PROFESIONAL')" />
+	  	<intercept-url pattern="/crearChecklist" access="hasAnyAuthority('PROFESIONAL')" />
+	  	<intercept-url pattern="/listarChecklist" access="hasAnyAuthority('PROFESIONAL')" />
+	  	<intercept-url pattern="/pagos" access="hasAnyAuthority('ADMINISTRATIVO')" />
+	 	<intercept-url pattern="/pagos/crear" access="hasAnyAuthority('ADMINISTRATIVO')" />
+		
+		
+		<form-login login-page="/login"
+			authentication-failure-url="/error"
+			username-parameter="username"
+			password-parameter="password" />
+		<csrf disabled="true"/>
+		
+		<logout logout-success-url="/"/>
+	</http>
+	
+	<authentication-manager>
+		<authentication-provider>
+			<password-encoder hash="bcrypt" />
+			
+			<!-- Usuario de prueba -->
+<!--			<user-service>-->
+<!--				<user name="usuario" authorities="ADMIN" password="$2a$10$iwXvVmOoNq1uIqM6jd0AruG1KoeItR/Wo7hgxBfkdjmQsVvjM/O9S" />-->
+<!--			</user-service>-->
+
+			<!-- Carga de datos de usuario desde la base de datos para el Login -->
+			<jdbc-user-service data-source-ref="ds" 
+				users-by-username-query="select rutusuario as username, passwordusuario, 1 as enabled from usuarios where rutusuario = ?"
+				authorities-by-username-query="select rutusuario as username, tipousuario as authority from usuarios where rutusuario = ?"
+			/>
+		</authentication-provider>
+	</authentication-manager>
+	
+</bean:beans>

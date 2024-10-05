@@ -1,0 +1,47 @@
+/* Importación de fuente mediante googlefonts (Opcional)*/
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap');
+
+/* reglas para verificar que se haya tomado el .css */
+/* body { */
+/*     font-family: Arial, sans-serif; */
+/*     background-color: #00ffff;  */
+/*     color: red; */
+/*     margin: 0; */
+/*     padding: 0; */
+/* } */
+
+h1 {
+    font-size : 4rem;
+}
+
+.container {
+	margin-bottom: 4rem;
+}
+
+.container-footer {
+    margin: 1rem;
+}
+
+.btn {
+    margin-top: 10px;
+}
+
+.navbar {
+	background-color: #262A56;	
+}
+
+
+footer {
+    background-color: #343a40;
+    color: white;
+    margin-top: 24rem;
+    text-align: center;
+/*     position: fixed; */
+    width: 100%;
+    margin-bottom: 0;
+}
+
+table {
+    margin: 20px auto;
+    width: 100%;
+}

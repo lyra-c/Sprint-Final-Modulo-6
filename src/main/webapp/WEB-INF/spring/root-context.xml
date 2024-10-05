@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Configuración de la Base de Datos -->
+    <!-- Definición de JdbcTemplate -->
+    <bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/prevencion_riesgos"></property>
+		<property name="username" value="usuarioejercicio"></property>
+		<property name="password" value="1234"></property> 
+	</bean>
+	 
+	<!-- Hacer referencia a la configuración del DataSource definido anteriormente -->
+	<bean id="jt" class="org.springframework.jdbc.core.JdbcTemplate">
+	 	<property name="dataSource" ref="ds"></property>
+	</bean>
+
+	 <!-- Para los CRUD, implementar los beans aquí abajo en caso de ser necesario -->
+
+	<bean id="cDAO" class="tech.awakelab.SprintFinalModulo6.model.dao.CapacitacionDaoImpl">
+		<property name="template" ref="jt"></property>
+	</bean>
+	
+	<bean id="pDAO" class="tech.awakelab.SprintFinalModulo6.model.dao.PagoDaoImpl">
+	  		<property name="template" ref="jt"></property>
+	</bean>
+	
+	<bean id="uDAO" class="tech.awakelab.SprintFinalModulo6.model.dao.UsuarioDaoImpl">
+		<property name="template" ref="jt"></property>
+	</bean>
+
+</beans>
